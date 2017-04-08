@@ -1,0 +1,14 @@
+body {
+    font-family: 'Fira Mono', monospace;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+}
+
+#header img {
+    height: 4em;
+}
