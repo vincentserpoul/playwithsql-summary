@@ -24,9 +24,15 @@
     </a>
   </section>
 
-  <section id="graph">
-    <canvas id="benchResultsChart"></canvas>
+  <section id="filter">
+    <select id="chooseMeasurement" name="measurementType" onChange="displayGraph(this.value);">
+      <option value="Throughput">throughput (transactions/s) - higher is better</option>
+      <option value="Median">median time for each transaction (ns) - lower is better</option>
+      <option value="StandDev">standard deviation time for each transaction (ns) - lower is better</option>
+    </select>
   </section>
+
+  <section id="graph"></section>
 
   <script src="js/scripts.js"></script>
   <script src="js/analytics.js"></script>  

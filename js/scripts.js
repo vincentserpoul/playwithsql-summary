@@ -1,5 +1,7 @@
 'use strict';
 
+let benchResultsData;
+
 // retrieve json from github
 const getBenchResults = () => 
     fetch('https://raw.githubusercontent.com/vincentserpoul/playwithsql/master/bench/status/swarm/results.log')
@@ -13,13 +15,25 @@ const getBenchResults = () =>
         console.log('There has been a problem with your fetch operation: ' + error.message);
     });
 
-const displayGraph = (benchResultsData) => {
-    const ctx = document.getElementById("benchResultsChart");
+const displayGraph = (measurementType) => {
+    const graph = document.getElementById("graph");
+
+    // Remove previous existinf nodes
+    graph.childNodes.forEach((node) => {
+        if(node.tagName == 'CANVAS') {
+            node.parentNode.removeChild(node);
+        }
+    });
+
+    const ctx = document.createElement("canvas");
+    graph.appendChild(ctx);
+
+    // const ctx = document.getElementById("benchResultsChart");
     const benchResultsChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ["create", "updateStatus", "selectEntityoneByStatus", "selectEntityoneOneByPK"],
-            datasets: extractDatasets(benchResultsData, 'Throughput'),
+            datasets: extractDatasets(benchResultsData, measurementType),
         },
         options: {
             scales: {
@@ -33,13 +47,10 @@ const displayGraph = (benchResultsData) => {
     });    
 }
 
-const extractDatasets = (benchResultsData, dataType) => {
+const extractDatasets = (benchResultsData, measurementType) => {
     const extractedDatasets = [];
-
     const backgroundColor =   'rgba(255, 99, 132, 0.2)';
-
     const borderColor = '#efefef';
-
     const borderWidth = 1;
 
     benchResultsData.map((data) => {
@@ -47,7 +58,7 @@ const extractDatasets = (benchResultsData, dataType) => {
         dbDataset["label"] = data.DBType;
         dbDataset["data"] = [];
         data.BenchResults.map((res) => {
-            dbDataset["data"].push(res[dataType]);
+            dbDataset["data"].push(res[measurementType]);
         });
         dbDataset["backgroundColor"] = stringToColour(data.DBType);
         dbDataset["borderColor"] = borderColor;
@@ -71,4 +82,8 @@ const stringToColour = (str) => {
     return colour;
 }
 
-getBenchResults().then((response) => displayGraph(response));
+getBenchResults().then((response) => {
+    benchResultsData = response;
+    displayGraph('Throughput');
+    return;
+});

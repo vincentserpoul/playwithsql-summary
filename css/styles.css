@@ -13,6 +13,14 @@ body {
     height: 4em;
 }
 
+#filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;    
+    margin: 2em 0;
+}
+
 #benchResultsChart {
     margin: 1%;
     width: 100%;
