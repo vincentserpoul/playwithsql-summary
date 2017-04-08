@@ -12,3 +12,8 @@ body {
 #header img {
     height: 4em;
 }
+
+#benchResultsChart {
+    margin: 1%;
+    width: 100%;
+}

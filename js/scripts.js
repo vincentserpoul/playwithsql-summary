@@ -13,33 +13,13 @@ const getBenchResults = () =>
         console.log('There has been a problem with your fetch operation: ' + error.message);
     });
 
-const displayGraph = (benchResultsObj) => {
+const displayGraph = (benchResultsData) => {
     const ctx = document.getElementById("benchResultsChart");
     const benchResultsChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
+            labels: ["create", "updateStatus", "selectEntityoneByStatus", "selectEntityoneOneByPK"],
+            datasets: extractDatasets(benchResultsData, 'Throughput'),
         },
         options: {
             scales: {
@@ -53,5 +33,42 @@ const displayGraph = (benchResultsObj) => {
     });    
 }
 
-getBenchResults()
-.then((response) => displayGraph(response));
+const extractDatasets = (benchResultsData, dataType) => {
+    const extractedDatasets = [];
+
+    const backgroundColor =   'rgba(255, 99, 132, 0.2)';
+
+    const borderColor = '#efefef';
+
+    const borderWidth = 1;
+
+    benchResultsData.map((data) => {
+        const dbDataset = {};
+        dbDataset["label"] = data.DBType;
+        dbDataset["data"] = [];
+        data.BenchResults.map((res) => {
+            dbDataset["data"].push(res[dataType]);
+        });
+        dbDataset["backgroundColor"] = stringToColour(data.DBType);
+        dbDataset["borderColor"] = borderColor;
+        dbDataset["borderWidth"] = borderWidth;
+        extractedDatasets.push(dbDataset);
+    });
+
+    return extractedDatasets;
+}
+
+const stringToColour = (str) => {
+    let hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 4) - hash);
+    }
+    let colour = '#';
+    for (var i = 0; i < 3; i++) {
+        const value = (hash >> (i * 8)) & 0xFF;
+        colour += ('00' + value.toString(16)).substr(-2);
+    }
+    return colour;
+}
+
+getBenchResults().then((response) => displayGraph(response));
