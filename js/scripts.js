@@ -4,7 +4,7 @@ let benchResultsData;
 
 // retrieve json from github
 const getBenchResults = () => 
-    fetch('https://raw.githubusercontent.com/vincentserpoul/playwithsql/master/bench/status/swarm/results.log')
+    fetch('https://raw.githubusercontent.com/vincentserpoul/playwithsql/master/bench/status/kubernetes/results.log')
     .then((response) => {
         if(response.ok) {
             return response.json();
