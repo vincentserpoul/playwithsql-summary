@@ -28,8 +28,7 @@ const displaySelectGraph = (measurementType) => {
     const ctx = document.createElement("canvas");
     graph.appendChild(ctx);
 
-    // const ctx = document.getElementById("benchResultsChart");
-    const benchResultsChart = new Chart(ctx, {
+    const benchResultsSelectChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ["selectEntityoneByStatus", "selectEntityoneOneByPK"],
@@ -64,8 +63,7 @@ const displayCRUDGraph = (measurementType) => {
     const ctx = document.createElement("canvas");
     graph.appendChild(ctx);
 
-    // const ctx = document.getElementById("benchResultsChart");
-    const benchResultsChart = new Chart(ctx, {
+    const benchResultsCRUDChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ["create", "updateStatus"],

@@ -21,7 +21,19 @@ body {
     margin: 2em 0;
 }
 
-#benchResultsChart {
-    margin: 1%;
-    width: 100%;
+#graph {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#CRUDGraph {
+    flex-grow: 1;
+    order: 1;
+}
+
+#selectGraph {
+    flex-grow: 1;
+    order: 2;
 }
