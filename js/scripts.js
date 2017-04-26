@@ -15,8 +15,8 @@ const getBenchResults = () =>
         console.log('There has been a problem with your fetch operation: ' + error.message);
     });
 
-const displayGraph = (measurementType) => {
-    const graph = document.getElementById("graph");
+const displaySelectGraph = (measurementType) => {
+    const graph = document.getElementById("selectGraph");
 
     // Remove previous existinf nodes
     graph.childNodes.forEach((node) => {
@@ -32,8 +32,8 @@ const displayGraph = (measurementType) => {
     const benchResultsChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["create", "updateStatus", "selectEntityoneByStatus", "selectEntityoneOneByPK"],
-            datasets: extractDatasets(benchResultsData, measurementType),
+            labels: ["selectEntityoneByStatus", "selectEntityoneOneByPK"],
+            datasets: extractDatasets(benchResultsData, measurementType, "select"),
         },
         options: {
             scales: {
@@ -42,12 +42,52 @@ const displayGraph = (measurementType) => {
                         beginAtZero:true
                     }
                 }]
-            }
+            },
+            title: {
+                display: true,
+                text: 'Select statements'
+            }            
         }
     });    
 }
 
-const extractDatasets = (benchResultsData, measurementType) => {
+const displayCRUDGraph = (measurementType) => {
+    const graph = document.getElementById("CRUDGraph");
+
+    // Remove previous existinf nodes
+    graph.childNodes.forEach((node) => {
+        if(node.tagName == 'CANVAS') {
+            node.parentNode.removeChild(node);
+        }
+    });
+
+    const ctx = document.createElement("canvas");
+    graph.appendChild(ctx);
+
+    // const ctx = document.getElementById("benchResultsChart");
+    const benchResultsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["create", "updateStatus"],
+            datasets: extractDatasets(benchResultsData, measurementType, "CRUD"),
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'CRUD statements'
+            }                  
+        }
+    });    
+}
+
+const extractDatasets = (benchResultsData, measurementType, statementType) => {
     const extractedDatasets = [];
     const backgroundColor =   'rgba(255, 99, 132, 0.2)';
     const borderColor = '#efefef';
@@ -57,9 +97,12 @@ const extractDatasets = (benchResultsData, measurementType) => {
         const dbDataset = {};
         dbDataset["label"] = data.DBType;
         dbDataset["data"] = [];
-        data.BenchResults.map((res) => {
-            dbDataset["data"].push(res[measurementType]);
-        });
+        data.BenchResults
+            .filter((res) => getStatementTypeFromAction(res.Action) == statementType )
+            .map((res) => {
+                dbDataset["data"].push(res[measurementType]);
+            }
+        );
         dbDataset["backgroundColor"] = stringToColour(data.DBType);
         dbDataset["borderColor"] = borderColor;
         dbDataset["borderWidth"] = borderWidth;
@@ -67,6 +110,20 @@ const extractDatasets = (benchResultsData, measurementType) => {
     });
 
     return extractedDatasets;
+}
+
+const getStatementTypeFromAction = (action) => {
+    if(action == "create" || action == "updateStatus"){
+        return "CRUD";
+    }
+    if(action == "selectEntityoneOneByPK" || action == "selectEntityoneByStatus"){
+        return "select";
+    }
+}
+
+const displayGraph = (measurementType) => {
+    displayCRUDGraph(measurementType);    
+    displaySelectGraph(measurementType);
 }
 
 const stringToColour = (str) => {
