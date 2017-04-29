@@ -27,6 +27,8 @@
   <section id="filter">
     <select id="chooseMeasurement" name="measurementType" onChange="displayGraph(this.value);">
       <option value="Throughput">throughput (transactions/s) - higher is better</option>
+      <option value="Min">min time for each transaction (ns) - lower is better</option>
+      <option value="Max">max time for each transaction (ns) - lower is better</option>            
       <option value="Median">median time for each transaction (ns) - lower is better</option>
       <option value="StandDev">standard deviation time for each transaction (ns) - lower is better</option>
     </select>
