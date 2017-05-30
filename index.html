@@ -6,7 +6,7 @@
   <meta name="description" content="Play with SQL and golang summary">
   <meta name="author" content="Vincent Serpoul">
   <link rel="icon" href="favicon.ico" />
-  <link rel="stylesheet" href="css/styles.css?v=1.2">
+  <link rel="stylesheet" href="css/styles.css?v=1.3">
   <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -24,12 +24,26 @@
     </a>
   </section>
 
+  <section id="chooseSchemaNCluster">
+    <select id="chooseExperiment" name="experimentType" onChange="display();">
+      <option value="status">status</option>
+    </select>
+    <select id="chooseSchema" name="schemaType" onChange="display();">
+      <option value="islatest">islatest</option>
+      <option value="lateststatus">lateststatus</option>
+    </select>
+    <select id="chooseCluster" name="clusterType" onChange="display();">
+      <option value="swarm">docker swarm 1.17.05 - local macbook pro</option>
+      <option value="kubernetes">kubernetes 1.6.4 - gcp 4x n1-standard-1 - 1 vCPU, 3.75GB</option>
+    </select>
+  </section>
+
   <section id="schema">
-    <img src="https://cdn.rawgit.com/vincentserpoul/playwithsql/master/status/lateststatus/status_lateststatus.svg" alt="lateststatus schema" />
+    <img id="schemaImg" />
   </section>
 
   <section id="filter">
-    <select id="chooseMeasurement" name="measurementType" onChange="displayGraph(this.value);">
+    <select id="chooseMeasurement" name="measurementType" onChange="display();">
       <option value="Throughput">throughput (transactions/s) - higher is better</option>
       <option value="Min">min time for each transaction (ns) - lower is better</option>
       <option value="Max">max time for each transaction (ns) - lower is better</option>

@@ -3,8 +3,8 @@
 let benchResultsData;
 
 // retrieve json from github
-const getBenchResults = () =>
-    fetch('https://raw.githubusercontent.com/vincentserpoul/playwithsql/master/bench/status/kubernetes/lateststatus/results.log')
+const getBenchResults = (experimentType, schemaType, clusterType) =>
+    fetch('https://raw.githubusercontent.com/vincentserpoul/playwithsql/master/bench/'+experimentType+'/'+clusterType+'/'+schemaType+'/results.log')
     .then((response) => {
         if(response.ok) {
             return response.json();
@@ -119,9 +119,31 @@ const getStatementTypeFromAction = (action) => {
     }
 }
 
-const displayGraph = (measurementType) => {
-    displayCRUDGraph(measurementType);
-    displaySelectGraph(measurementType);
+const display = () => {
+    const experimentTypeSelect = document.getElementById("chooseExperiment");
+    const experimentType = experimentTypeSelect.options[experimentTypeSelect.selectedIndex].value;
+
+    const schemaTypeSelect = document.getElementById("chooseSchema");
+    const schemaType = schemaTypeSelect.options[schemaTypeSelect.selectedIndex].value;
+
+    const clusterTypeSelect = document.getElementById("chooseCluster");
+    const clusterType = clusterTypeSelect.options[clusterTypeSelect.selectedIndex].value;
+
+    const measurementTypeSelect = document.getElementById("chooseMeasurement");
+    const measurementType = measurementTypeSelect.options[measurementTypeSelect.selectedIndex].value;
+
+    getBenchResults(experimentType, schemaType, clusterType).then((response) => {
+        benchResultsData = response;
+        displaySchema(experimentType, schemaType);
+        displayCRUDGraph(measurementType);
+        displaySelectGraph(measurementType);
+        return;
+    });
+}
+
+const displaySchema = (experimentType, schemaType) => {
+    const schemaImg = document.getElementById("schemaImg");
+    schemaImg.src = "https://cdn.rawgit.com/vincentserpoul/playwithsql/master/"+experimentType+"/"+schemaType+"/"+experimentType+"_"+schemaType+".svg"
 }
 
 const stringToColour = (str) => {
@@ -137,8 +159,4 @@ const stringToColour = (str) => {
     return colour;
 }
 
-getBenchResults().then((response) => {
-    benchResultsData = response;
-    displayGraph('Throughput');
-    return;
-});
+display();

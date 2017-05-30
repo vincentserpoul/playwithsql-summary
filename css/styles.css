@@ -13,6 +13,17 @@ body {
     height: 4em;
 }
 
+#chooseSchemaNCluster {
+    margin: 2em 0;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+#chooseSchemaNCluster select {
+    width: 25vw;
+}
+
 #schema {
     display: flex;
     justify-content: center;
