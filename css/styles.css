@@ -13,11 +13,21 @@ body {
     height: 4em;
 }
 
+#schema {
+    display: flex;
+    justify-content: center;
+}
+
+#schema img {
+    width: 50vw;
+    height: 15vw;
+}
+
 #filter {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-content: center;    
+    align-content: center;
     margin: 2em 0;
 }
 

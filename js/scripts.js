@@ -3,8 +3,8 @@
 let benchResultsData;
 
 // retrieve json from github
-const getBenchResults = () => 
-    fetch('https://raw.githubusercontent.com/vincentserpoul/playwithsql/master/bench/status/swarm/results.log')
+const getBenchResults = () =>
+    fetch('https://raw.githubusercontent.com/vincentserpoul/playwithsql/master/bench/status/kubernetes/lateststatus/results.log')
     .then((response) => {
         if(response.ok) {
             return response.json();
@@ -45,9 +45,9 @@ const displaySelectGraph = (measurementType) => {
             title: {
                 display: true,
                 text: 'Select statements'
-            }            
+            }
         }
-    });    
+    });
 }
 
 const displayCRUDGraph = (measurementType) => {
@@ -80,9 +80,9 @@ const displayCRUDGraph = (measurementType) => {
             title: {
                 display: true,
                 text: 'CRUD statements'
-            }                  
+            }
         }
-    });    
+    });
 }
 
 const extractDatasets = (benchResultsData, measurementType, statementType) => {
@@ -120,7 +120,7 @@ const getStatementTypeFromAction = (action) => {
 }
 
 const displayGraph = (measurementType) => {
-    displayCRUDGraph(measurementType);    
+    displayCRUDGraph(measurementType);
     displaySelectGraph(measurementType);
 }
 

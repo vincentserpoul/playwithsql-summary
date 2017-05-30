@@ -15,7 +15,7 @@
   <![endif]-->
 </head>
 <body>
-    
+
   <section id="header">
     <img src="img/gophersql.svg" alt="gopher sql" />
     <h1>bench results of play with sql and golang</h1>
@@ -24,22 +24,27 @@
     </a>
   </section>
 
+  <section id="schema">
+    <img src="https://cdn.rawgit.com/vincentserpoul/playwithsql/master/status/lateststatus/status_lateststatus.svg" alt="lateststatus schema" />
+  </section>
+
   <section id="filter">
     <select id="chooseMeasurement" name="measurementType" onChange="displayGraph(this.value);">
       <option value="Throughput">throughput (transactions/s) - higher is better</option>
       <option value="Min">min time for each transaction (ns) - lower is better</option>
-      <option value="Max">max time for each transaction (ns) - lower is better</option>            
+      <option value="Max">max time for each transaction (ns) - lower is better</option>
       <option value="Median">median time for each transaction (ns) - lower is better</option>
       <option value="StandDev">standard deviation time for each transaction (ns) - lower is better</option>
+      <option value="Errors">number of errors - lower is better</option>
     </select>
   </section>
 
   <section id="graph">
-    <section id="CRUDGraph"></section>  
+    <section id="CRUDGraph"></section>
     <section id="selectGraph"></section>
-  </section>    
+  </section>
 
   <script src="js/scripts.js"></script>
-  <script src="js/analytics.js"></script>  
+  <script src="js/analytics.js"></script>
 </body>
 </html>
