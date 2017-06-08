@@ -135,6 +135,7 @@ const display = () => {
     getBenchResults(experimentType, schemaType, clusterType).then((response) => {
         benchResultsData = response;
         displaySchema(experimentType, schemaType);
+        displayQueries(experimentType, schemaType);
         displayCRUDGraph(measurementType);
         displaySelectGraph(measurementType);
         return;
@@ -143,7 +144,36 @@ const display = () => {
 
 const displaySchema = (experimentType, schemaType) => {
     const schemaImg = document.getElementById("schemaImg");
-    schemaImg.src = "https://cdn.rawgit.com/vincentserpoul/playwithsql/master/"+experimentType+"/"+schemaType+"/"+experimentType+"_"+schemaType+".svg"
+    schemaImg.src = "https://cdn.rawgit.com/vincentserpoul/playwithsql/master/"+experimentType+"/"+schemaType+"/schema.svg"
+}
+
+const displayQueries = (experimentType, schemaType) => {
+
+    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/ddl.sql')
+    .then((response) => {
+        if(response.ok) {
+            return response.text();
+        }
+    })
+    .then((responseTxt) => {
+        document.getElementById("queriesDDLsql").innerHTML=responseTxt.replace(/(\r\n|\n|\r)/g,"<br />");
+    })
+    .catch((error) =>  {
+        console.log('There has been a problem with your fetch operation: ' + error.message);
+    });
+
+    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/dml.sql')
+    .then((response) => {
+        if(response.ok) {
+            return response.text();
+        }
+    })
+    .then((responseTxt) => {
+        document.getElementById("queriesDMLsql").innerHTML=responseTxt.replace(/(\r\n|\n|\r)/g,"<br />");
+    })
+    .catch((error) =>  {
+        console.log('There has been a problem with your fetch operation: ' + error.message);
+    });
 }
 
 const stringToColour = (str) => {

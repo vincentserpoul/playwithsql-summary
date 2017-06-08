@@ -29,12 +29,13 @@
       <option value="status">status</option>
     </select>
     <select id="chooseSchema" name="schemaType" onChange="display();">
-      <option value="islatest">islatest</option>
-      <option value="lateststatus">lateststatus</option>
+      <!--<option value="islatest">islatest</option>
+      <option value="lateststatus">lateststatus</option>-->
+      <option value="history">history</option>
     </select>
     <select id="chooseCluster" name="clusterType" onChange="display();">
-      <option value="swarm">docker swarm 1.17.05 - local macbook pro</option>
-      <option value="kubernetes">kubernetes 1.6.4 - gcp 4x n1-standard-1 - 1 vCPU, 3.75GB</option>
+      <option value="swarm">docker swarm 17.05.0-ce - Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz, 16GB</option>
+      <!--<option value="kubernetes">kubernetes 1.6.4 - gcp 4x n1-standard-1 - 1 vCPU, 3.75GB</option>-->
     </select>
   </section>
 
@@ -57,6 +58,16 @@
     <section id="CRUDGraph"></section>
     <section id="selectGraph"></section>
   </section>
+
+  <section id="queriesDDL">
+    <h2>DDL Queries</h2>
+    <div id="queriesDDLsql"></div>
+  </section>  
+
+  <section id="queriesDML">
+    <h2>DML Queries</h2>
+    <div id="queriesDMLsql"></div>
+  </section>  
 
   <script src="js/scripts.js"></script>
   <script src="js/analytics.js"></script>
