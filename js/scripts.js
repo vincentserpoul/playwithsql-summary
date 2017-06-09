@@ -149,7 +149,7 @@ const displaySchema = (experimentType, schemaType) => {
 
 const displayQueries = (experimentType, schemaType) => {
 
-    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/ddl.sql')
+    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/postgres/ddl.sql')
     .then((response) => {
         if(response.ok) {
             return response.text();
@@ -162,7 +162,7 @@ const displayQueries = (experimentType, schemaType) => {
         console.log('There has been a problem with your fetch operation: ' + error.message);
     });
 
-    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/dml.sql')
+    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/postgres/dml.sql')
     .then((response) => {
         if(response.ok) {
             return response.text();
