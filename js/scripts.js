@@ -66,7 +66,7 @@ const displayCRUDGraph = (measurementType) => {
     const benchResultsCRUDChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["create", "updateStatus"],
+            labels: ["create", "saveStatus"],
             datasets: extractDatasets(benchResultsData, measurementType, "CRUD"),
         },
         options: {
