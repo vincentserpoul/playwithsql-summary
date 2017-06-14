@@ -135,7 +135,7 @@ const display = () => {
     getBenchResults(experimentType, schemaType, clusterType).then((response) => {
         benchResultsData = response;
         displaySchema(experimentType, schemaType);
-        displayQueries(experimentType, schemaType);
+        displayQueries(experimentType, schemaType, 'postgres');
         displayCRUDGraph(measurementType);
         displaySelectGraph(measurementType);
         return;
@@ -147,22 +147,30 @@ const displaySchema = (experimentType, schemaType) => {
     schemaImg.src = "https://cdn.rawgit.com/vincentserpoul/playwithsql/master/"+experimentType+"/"+schemaType+"/schema.svg"
 }
 
-const displayQueries = (experimentType, schemaType) => {
+const displayQueries = (experimentType, schemaType, dbType) => {
 
+<<<<<<< HEAD
     fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/postgres/ddl.sql')
+=======
+    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/'+dbType+'/entityone_ddl.go')
+>>>>>>> DDL coming directly from the go file
     .then((response) => {
         if(response.ok) {
             return response.text();
         }
     })
     .then((responseTxt) => {
-        document.getElementById("queriesDDLsql").innerHTML=responseTxt.replace(/(\r\n|\n|\r)/g,"<br />");
+        document.getElementById("queriesDDLsql").innerHTML = responseTxt.match(/`((.|\n)*?)`/)[0].replace(/(\r\n|\n|\r)/g,"<br />");
     })
     .catch((error) =>  {
         console.log('There has been a problem with your fetch operation: ' + error.message);
     });
 
+<<<<<<< HEAD
     fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/postgres/dml.sql')
+=======
+    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/'+dbType+'/dml.sql')
+>>>>>>> DDL coming directly from the go file
     .then((response) => {
         if(response.ok) {
             return response.text();
