@@ -149,11 +149,7 @@ const displaySchema = (experimentType, schemaType) => {
 
 const displayQueries = (experimentType, schemaType, dbType) => {
 
-<<<<<<< HEAD
-    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/postgres/ddl.sql')
-=======
     fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/'+dbType+'/entityone_ddl.go')
->>>>>>> DDL coming directly from the go file
     .then((response) => {
         if(response.ok) {
             return response.text();
@@ -166,11 +162,7 @@ const displayQueries = (experimentType, schemaType, dbType) => {
         console.log('There has been a problem with your fetch operation: ' + error.message);
     });
 
-<<<<<<< HEAD
-    fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/postgres/dml.sql')
-=======
     fetch('https://cdn.rawgit.com/vincentserpoul/playwithsql/master/'+experimentType+'/'+schemaType+'/'+dbType+'/dml.sql')
->>>>>>> DDL coming directly from the go file
     .then((response) => {
         if(response.ok) {
             return response.text();
